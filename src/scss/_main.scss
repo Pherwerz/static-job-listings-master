@@ -29,7 +29,7 @@
 
     @media only screen and (max-width: 41em) {
       flex-direction: column;
-      flex: 0 0 50%;
+      flex: 0 0 80%;
       margin: 0 auto;
       transform: translateY(-4rem);
     }
@@ -123,6 +123,7 @@
   &__heading {
     color: var(--very-dark-grayish-cyan);
     margin-bottom: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
 
     &:hover {
