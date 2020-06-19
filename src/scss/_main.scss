@@ -74,6 +74,8 @@
 
   &__details {
     display: flex;
+    margin-left: 3rem;
+    flex: 1;
     height: 7rem;
     flex-direction: column;
     justify-content: space-between;
@@ -83,6 +85,7 @@
 
     @media only screen and (max-width: 41em) {
       width: 100%;
+      margin-left: 0;
     }
   }
 
