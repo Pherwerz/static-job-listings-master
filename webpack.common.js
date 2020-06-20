@@ -7,8 +7,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: './src/svg',
-          to: 'svg'
+          from: './src/img',
+          to: 'img'
         }
       ]
     })
@@ -27,7 +27,7 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[contentHash].[ext]',
+            name: '[name].[ext]',
             outputPath: 'img'
           }
         }

@@ -13,11 +13,12 @@
     background-color: #fff;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
     border-radius: 1rem;
-    //overflow: hidden;
+    overflow: hidden;
     margin-bottom: 4rem;
 
     @media only screen and (max-width: 41em) {
       justify-content: flex-start;
+      overflow: initial;
     }
   }
 
@@ -31,7 +32,7 @@
       flex-direction: column;
       flex: 0 0 80%;
       margin: 0 auto;
-      transform: translateY(-4rem);
+      transform: translateY(-5rem);
     }
   }
 
@@ -94,11 +95,15 @@
     font-size: 1.2rem;
     width: 90%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 
     @media only screen and (max-width: 41em) {
       margin-bottom: 1rem;
+    }
+
+    & span:not(:last-child) {
+      margin-right: 2rem;
     }
 
     & span:nth-child(2),
@@ -169,11 +174,13 @@
     }
   }
 
-  &__item {
+  &__clear {
     padding: 0.5rem;
     line-height: 1;
     background-color: var(--light-grayish-cyan-filter-tablets);
+    color: var(--desaturated-dark-cyan);
     border-radius: 0.5rem;
+    border: none;
 
     @media only screen and (max-width: 41em) {
       margin-bottom: 1rem;
