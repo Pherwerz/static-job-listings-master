@@ -34,7 +34,7 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     color: var(--desaturated-dark-cyan);
   }
@@ -43,6 +43,7 @@
     background-color: var(--light-grayish-cyan-filter-tablets);
     display: flex;
     margin: 0.5rem 0;
+    margin-right: 2rem;
     align-items: center;
     border-radius: 0.4rem;
     padding-left: 0.5rem;
