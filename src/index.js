@@ -8,7 +8,10 @@ let level = null;
 let languages = [];
 let tools = [];
 let tracker = false;
+let tracker2 = false;
 let newData = [...data];
+let update = [...data];
+let ids = [1, 1];
 
 const test = (type, test) => {
   newData = newData.filter(el => {
@@ -22,6 +25,38 @@ const test = (type, test) => {
       return el.tools.includes(test);
     }
   });
+};
+
+const updateTest = () => {
+  if (role) {
+    update = update.filter(el => {
+      return el.role === role;
+    });
+  }
+
+  if (level) {
+    update = update.filter(el => {
+      return el.level === level;
+    });
+  }
+
+  if (languages.length !== 0) {
+    languages.forEach(el => {
+      update = update.filter(cur => {
+        return cur.languages.includes(el);
+      });
+    });
+  }
+
+  if (tools.length !== 0) {
+    tools.forEach(el => {
+      update = update.filter(cur => {
+        return cur.tools.includes(el);
+      });
+    });
+  }
+
+  return update;
 };
 
 // load all initial data on load
@@ -49,14 +84,16 @@ elements.main.addEventListener('click', e => {
     } else if (e.target.id === 'languages') {
       if (languages.length < 3 && !languages.includes(e.target.textContent)) {
         languages.push(e.target.textContent);
-        filterList(languages[languages.length - 1], 'languages');
+        filterList(languages[languages.length - 1], `languages${ids[0]}`);
         test('languages', languages[languages.length - 1]);
+        ids[0]++;
       }
     } else if (e.target.id === 'tools') {
       if (tools.length < 2 && !tools.includes(e.target.textContent)) {
         tools.push(e.target.textContent);
-        filterList(tools[tools.length - 1], 'tools');
+        filterList(tools[tools.length - 1], `tools${ids[1]}`);
         test('tools', tools[tools.length - 1]);
+        ids[1]++;
       }
     }
 
@@ -67,17 +104,40 @@ elements.main.addEventListener('click', e => {
 
 // event to allow element disapper from the filter bar list
 elements.filterList.addEventListener('click', e => {
-  if (
-    e.target.className === 'header__clear' ||
-    e.target.className === 'header__image'
-  ) {
+  if (e.target.closest('.header__list')) {
+    const el = document.getElementById(e.target.closest('.header__list').id);
     if (e.target.id === 'role') {
-      const el = document.querySelector(e.target.parentNode.id);
-      console.log(e.target.parentNode.id);
-      //e.target.parentNode.parentNode.removeChild(el);
-      //role = null;
+      el.parentNode.removeChild(el);
+      role = null;
+    } else if (e.target.id === 'level') {
+      el.parentNode.removeChild(el);
+      level = null;
+      test('level', level);
+    } else if (e.target.id.includes('languages')) {
+      languages = languages.filter(ell => !el.textContent.includes(ell));
+      el.parentNode.removeChild(el);
+    } else if (e.target.id.includes('tools')) {
+      tools = tools.filter(ell => !el.textContent.includes(ell));
+      el.parentNode.removeChild(el);
     }
   }
+
+  if (
+    role === null &&
+    level === null &&
+    languages.length === 0 &&
+    tools.length === 0
+  ) {
+    tracker2 = true;
+  }
+
+  if (tracker2) {
+    elements.filterBar.style.display = 'none';
+    tracker2 = false;
+  }
+
+  renderData(updateTest(update));
+  update = [...data];
 });
 
 elements.filterBtn.addEventListener('click', () => {
@@ -87,6 +147,7 @@ elements.filterBtn.addEventListener('click', () => {
     languages = [];
     tools = [];
     newData = [...data];
+    ids = [1, 1];
     renderData(newData);
     elements.filterList.innerHTML = '';
     elements.filterBar.style.display = 'none';
